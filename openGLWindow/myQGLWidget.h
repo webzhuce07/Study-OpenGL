@@ -1,14 +1,14 @@
-#ifndef TETRAHEDRON_H
-#define TETRAHEDRON_H
+#ifndef MY_QGLWIDGET_H
+#define MY_QGLWIDGET_H
 
 #include <QGLWidget>
 
-class EmptyWindow : public QGLWidget
+class MyQGLWidget : public QGLWidget
 {
     Q_OBJECT
 
 public:
-    EmptyWindow(QWidget *parent = 0);
+	MyQGLWidget(QWidget *parent = 0);
 
 protected:
     void initializeGL();
