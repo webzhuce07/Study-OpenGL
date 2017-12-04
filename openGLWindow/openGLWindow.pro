@@ -2,6 +2,6 @@ TEMPLATE      = app
 QT           += opengl
 LIBS         += -lopengl32
 CONFIG       += console
-HEADERS       = emptyWindow.h
+HEADERS       = myQGLWidget.h
 SOURCES       = main.cpp \
-                emptyWindow.cpp
+                myQGLWidget.cpp

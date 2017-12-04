@@ -1,6 +1,6 @@
 #include <QApplication>
 #include <iostream>
-#include "emptyWindow.h"
+#include "myQGlWidget.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,10 +11,10 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    EmptyWindow emptyWindow;
-    emptyWindow.setWindowTitle(QObject::tr("EmptyWindow"));
-    emptyWindow.resize(300, 300);
-    emptyWindow.show();
+    MyQGLWidget widget;
+    widget.setWindowTitle(QObject::tr("OpenGLWindow"));
+    widget.resize(300, 300);
+    widget.show();
 
     return app.exec();
 }
