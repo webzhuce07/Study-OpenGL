@@ -30,7 +30,7 @@ void MyQGLWidget::resizeGL(int width, int height)
     glMatrixMode(GL_PROJECTION);               //选择投影矩阵
     glLoadIdentity();                          //重置投影矩阵
     GLfloat x = GLfloat(width) / height;
-    glFrustum(-x, +x, -1.0, +1.0, 4.0, 15.0);
+    glFrustum(-x, +x, -1.0, +1.0, 4.0, 20.0);
     glMatrixMode(GL_MODELVIEW);                // 选择模型观察矩阵
 }
 
@@ -38,7 +38,7 @@ void MyQGLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    gluLookAt(6, 0, 6, 0, 0, 0, 0, 1, 0);
+    gluLookAt(8, 0, 0, 0, 0, 0, 0, 1, 0);
     drawCube();
 }
 
@@ -69,7 +69,7 @@ void MyQGLWidget::loadGLTextures()
 
 void MyQGLWidget::drawCube()
 {
-    glRotatef(rotateAngle_, 1.0f, 1.0f, 1.0f);
+    glRotatef(rotateAngle_, 1.0f, 0.0f, 0.0f);
     static const GLfloat P1[3] = { 1.0, 1.0, 1.0 };
     static const GLfloat P2[3] = { -1.0, 1.0, 1.0 };
     static const GLfloat P3[3] = { -1.0, -1.0, 1.0 };

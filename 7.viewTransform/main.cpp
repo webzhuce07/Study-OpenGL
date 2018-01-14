@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     }
 
     MyQGLWidget widget;
-    widget.setWindowTitle(QObject::tr("Texture Map"));
+    widget.setWindowTitle(QObject::tr("3D Viewing Transform"));
 	widget.resize(600, 600);
 	widget.show();
 
