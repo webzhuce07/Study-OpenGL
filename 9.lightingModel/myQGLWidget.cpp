@@ -4,13 +4,12 @@
 #include "myQGLWidget.h"
 
 MyQGLWidget::MyQGLWidget(QWidget *parent)
-    : QGLWidget(parent),rotateAngle_(0.0f)
+    : QGLWidget(parent),rotateAngle_(0.0f),lightFlag_(false)
 {
     setFormat(QGLFormat(QGL::DoubleBuffer | QGL::DepthBuffer));
     QTimer *timer = new QTimer(this);                //创建一个定时器
     connect(timer, SIGNAL(timeout()), this, SLOT(updateGL()));  //将定时器的计时信号与updateGL()绑定
-    timer->start(10);                                //以10ms为一个计时周期
-
+    timer->start(10);                                //以10ms为一个计时周期    
 }
 
 void MyQGLWidget::initializeGL()
@@ -24,19 +23,16 @@ void MyQGLWidget::initializeGL()
     glDepthFunc(GL_LEQUAL);  //设置深度测试类型
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);//进行透视校正
 
-    GLfloat LightAmbient[] = {1.0f, 0.5f, 0.5f, 1.0f};  //环境光参数
-    GLfloat LightDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};  //漫散光参数
-    GLfloat LightPosition[] = {0.0f, 0.0f, 2.0f, 1.0f}; //光源位置
-    glLightfv(GL_LIGHT1, GL_AMBIENT, LightAmbient);     //设置环境光
-    glLightfv(GL_LIGHT1, GL_DIFFUSE, LightDiffuse);     //设置漫射光
-    glLightfv(GL_LIGHT1, GL_POSITION, LightPosition);   //设置光源位置
+    GLfloat lightAmbient[] = {1.0f, 0.5f, 0.5f, 1.0f};  //环境光参数
+    GLfloat lightDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};  //漫散光参数
+    GLfloat lightSpecular[] = {1.0f, 1.0f, 1.0f, 1.0f}; //镜面反射参数
+    GLfloat lightPosition[] = {0.0f, 0.0f, 2.0f, 1.0f}; //光源位置,局部光源
+
+    glLightfv(GL_LIGHT1, GL_AMBIENT, lightAmbient);     //设置环境光
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, lightDiffuse);     //设置漫射光
+    glLightfv(GL_LIGHT1, GL_SPECULAR, lightSpecular);   //镜面反射后
+    glLightfv(GL_LIGHT1, GL_POSITION,lightPosition);   //设置光源位置
     glEnable(GL_LIGHT1);                                //启动一号光源
-    glEnable(GL_LIGHTING);
-
-    glEnable(GL_BLEND);
-    glColor4f(1.0, 0.0, 0.0, 0.5);//后面的步骤都是以全亮绘制物体，并且50%的透明度
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-
 
 }
 
@@ -56,6 +52,19 @@ void MyQGLWidget::paintGL()
     glLoadIdentity();
     gluLookAt(0, 0, 12, 0, 0, 0, 0, 1, 0);
     drawCube();
+}
+
+void MyQGLWidget::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_L){
+        lightFlag_ = !lightFlag_;
+        if (lightFlag_){
+            glEnable(GL_LIGHTING);
+        }
+        else{
+            glDisable(GL_LIGHTING);
+        }
+    }
 }
 
 void MyQGLWidget::loadGLTextures()
