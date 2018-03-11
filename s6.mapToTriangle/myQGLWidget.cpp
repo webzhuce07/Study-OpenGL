@@ -138,4 +138,8 @@ void MyQGLWidget::initShader()
     if (!linked)
         std::cout<<"Error";
     glUseProgram(programID);
+
+	//GLint texLoc;
+	//texLoc = glGetUniformLocation(programID, "myTexture");
+	//glUniform1i(texLoc, 0); //GL_TEXTURE0,  关联
 }
