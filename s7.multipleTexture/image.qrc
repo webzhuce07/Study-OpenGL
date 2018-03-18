@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/new/img">
+        <file>texture.jpg</file>
+        <file>lena.jpg</file>
+    </qresource>
+</RCC>
