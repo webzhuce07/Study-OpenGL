@@ -1,2 +1,2 @@
 # Study-OpenGL
-In Qt 5.6.x, Study OpenGL
+Study OpenGL OpenGL 4.X Shading Language 
