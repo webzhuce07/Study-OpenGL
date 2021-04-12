@@ -1,0 +1,11 @@
+prefix=G:/OpenGL/glew-2.1.0/glew-2.1.0-bulid/install
+exec_prefix=${prefix}
+libdir=G:/OpenGL/glew-2.1.0/glew-2.1.0-bulid/install/lib
+includedir=${prefix}/include
+
+Name: glew
+Description: The OpenGL Extension Wrangler library
+Version: 2.1.0
+Cflags: -I${includedir} 
+Libs: -L${libdir} -lglew32
+Requires: glu
