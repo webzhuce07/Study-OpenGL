@@ -71,7 +71,7 @@ int main()
 
 
 	// Build and compile our shader program
-	Shader ourShader("./shaders/cubes.vs", "./shaders/cubes.frag");
+	Shader ourShader("./shaders/controlcamera.vs", "./shaders/controlcamera.frag");
 
 	glEnable(GL_DEPTH_TEST);
 
