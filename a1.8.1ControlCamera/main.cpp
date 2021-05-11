@@ -28,7 +28,6 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 
-
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
 
@@ -218,13 +217,13 @@ int main()
 	// Game loop
 	while (!glfwWindowShouldClose(window))
 	{
+		// Check if any events have been activated (key pressed, mouse moved etc.) and call corresponding response functions
+		glfwPollEvents();
+
 		// per-frame time logic
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-
-		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
-		glfwPollEvents();
 
 		// Render
 		// Clear the colorbuffer
@@ -236,7 +235,7 @@ int main()
 
 		// Projection 
 		glm::mat4 projection = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first;
-		projection = glm::perspective(glm::radians(45.0f), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(camera.Zoom), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
 		// Get their uniform location
 		GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
 		GLint viewLoc = glGetUniformLocation(ourShader.Program, "view");
