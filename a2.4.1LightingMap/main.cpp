@@ -215,7 +215,6 @@ int main()
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 1.0f, 1.0f, 1.0f);
 
 		// Set material properties
-		 // Set material properties
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 0.5f, 0.5f, 0.5f);
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 64.0f);
 
@@ -237,6 +236,8 @@ int main()
 		GLint viewPosLoc = glGetUniformLocation(lightingShader.Program, "viewPos");
 		glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 		glUniform3f(viewPosLoc, camera.Position.x, camera.Position.y, camera.Position.z);
+
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 0);
 
 		// Bind diffuse map
 		glActiveTexture(GL_TEXTURE0);
