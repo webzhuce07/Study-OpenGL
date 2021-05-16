@@ -75,7 +75,7 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 
 	// Build and compile our shader program
-	Shader lightingShader("./shaders/multipleLights.vs", "./shaders/multipleLights.frag");
+	Shader lightingShader("./shaders/multiplelights.vs", "./shaders/multiplelights.frag");
 	Shader lightCubeShader("./shaders/lightcube.vs", "./shaders/lightcube.frag");
 
 	// Set up vertex data (and buffer(s)) and attribute pointers
@@ -303,8 +303,8 @@ int main()
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[3].constant"), 1.0f);
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[3].linear"), 0.09);
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[3].quadratic"), 0.032);
-		// SpotLight
-		/*glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.position"), camera.Position.x, camera.Position.y, camera.Position.z);
+		 //SpotLight
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.position"), camera.Position.x, camera.Position.y, camera.Position.z);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.direction"), camera.Front.x, camera.Front.y, camera.Front.z);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.ambient"), 0.0f, 0.0f, 0.0f);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.diffuse"), 1.0f, 1.0f, 1.0f);
@@ -313,7 +313,7 @@ int main()
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.linear"), 0.09);
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.quadratic"), 0.032);
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.cutOff"), glm::cos(glm::radians(12.5f)));
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.outerCutOff"), glm::cos(glm::radians(15.0f)));*/
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.outerCutOff"), glm::cos(glm::radians(15.0f)));
 
 		// Create camera transformations
 		glm::mat4 view = camera.GetViewMatrix();
