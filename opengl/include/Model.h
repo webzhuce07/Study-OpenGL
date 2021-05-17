@@ -42,6 +42,8 @@ private:
     /*  Model Data  */
     vector<Mesh> meshes;
     string directory;
+	vector<Texture> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+
 
     /*  Functions   */
     // Loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
@@ -158,12 +160,25 @@ private:
         {
             aiString str;
             mat->GetTexture(type, i, &str);
-            // Check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
-            Texture texture;
-            texture.id = TextureFromFile(str.C_Str(), this->directory);
-            texture.type = typeName;
-            texture.path = str;
-            textures.push_back(texture);
+			GLboolean skip = false;
+			for (GLuint j = 0; j < textures_loaded.size(); j++)
+			{
+				if (std::strcmp(textures_loaded[j].path.C_Str(), str.C_Str()) == 0)
+				{
+					textures.push_back(textures_loaded[j]);
+					skip = true; // A texture with the same filepath has already been loaded, continue to next one. (optimization)
+					break;
+				}
+			}
+			if (!skip)
+			{   // If texture hasn't been loaded already, load it
+				Texture texture;
+				texture.id = TextureFromFile(str.C_Str(), this->directory);
+				texture.type = typeName;
+				texture.path = str;
+				textures.push_back(texture);
+				this->textures_loaded.push_back(texture);  // Store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
+			}
         }
         return textures;
     }
@@ -198,6 +213,8 @@ GLint TextureFromFile(const char* path, string directory)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
 
 		stbi_image_free(data);
 	}
