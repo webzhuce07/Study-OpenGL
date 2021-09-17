@@ -100,7 +100,7 @@ bool LoadVolume() {
 //mouse down event handler
 void OnMouseDown(int button, int s, int x, int y)
 {
-	return;
+	//return;
 	if (s == GLUT_DOWN)
 	{
 		oldX = x;
@@ -116,9 +116,9 @@ void OnMouseDown(int button, int s, int x, int y)
 //mouse move event handler
 void OnMouseMove(int x, int y)
 {
-	return;
+	//return;
 	if (state == 0) {
-		dist += (y - oldY)/50.0f;
+		dist += (y - oldY)/500.0f;
 	} else {
 		rX += (y - oldY)/5.0f;
 		rY += (x - oldX)/5.0f;
@@ -256,11 +256,11 @@ void OnRender() {
 	glm::mat4 Tr	= glm::translate(glm::mat4(1.0f),glm::vec3(0.0f, 0.0f, dist));
 	glm::mat4 Rx	= glm::rotate(Tr, rX, glm::vec3(1.0f, 0.0f, 0.0f));
 	glm::mat4 MV    = glm::rotate(Rx, rY, glm::vec3(0.0f, 1.0f, 0.0f));
+	MV = glm::translate(MV, glm::vec3(-0.5f, -0.5f, -0.5f));
 
 	//get the camera position
-	glm::vec3 camPos = glm::vec3(glm::inverse(MV)*glm::vec4(0,0,0,1));
-	//glm::vec3 camPos = glm::vec3(glm::mat4(1.0f)*glm::vec4(0, 0, 0, 1));
-
+	glm::vec3 camPos = glm::vec3(glm::inverse(MV)*glm::vec4(0.0,0.0,0.0,1));
+	
 	//clear colour and depth buffer
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 

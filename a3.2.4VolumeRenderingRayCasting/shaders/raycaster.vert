@@ -1,4 +1,4 @@
-#version 300 core
+#version 400 core
 layout(location=0) in vec3 pos;
 uniform mat4 proj_view;
 uniform vec3 eye_pos;

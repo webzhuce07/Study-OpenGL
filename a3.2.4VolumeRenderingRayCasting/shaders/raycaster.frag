@@ -1,6 +1,6 @@
-#version 300 core
+#version 400 core
 uniform sampler3D volume;
-#uniform sampler2D colormap;
+//uniform sampler2D colormap;
 uniform ivec3 volume_dims;
 uniform float dt_scale;
 
@@ -51,10 +51,11 @@ void main(void) {
 	float dt = dt_scale * min(dt_vec.x, min(dt_vec.y, dt_vec.z));
 	float offset = wang_hash(int(gl_FragCoord.x + 640.0 * gl_FragCoord.y));
 	vec3 p = transformed_eye + (t_hit.x + offset * dt) * ray_dir;
+	color = vec4(0.0);
 	for (float t = t_hit.x; t < t_hit.y; t += dt) {
 		float val = texture(volume, p).r;
 		//vec4 val_color = vec4(texture(colormap, vec2(val, 0.5)).rgb, val);
-		/vec4 val_color = vec4(val);
+		vec4 val_color = vec4(val);
 		// Opacity correction
 		val_color.a = 1.0 - pow(1.0 - val_color.a, dt_scale);
 		color.rgb += (1.0 - color.a) * val_color.a * val_color.rgb;
